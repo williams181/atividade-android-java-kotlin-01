@@ -35,11 +35,10 @@ public class ContaViewHolder  extends RecyclerView.ViewHolder {
         } else {
             this.icone.setImageResource(R.drawable.ok);
         }
-        this.addListener(c.numero);
+        this.addListener(c.numero, c.cpfCliente, c.nomeCliente, c.saldo);
     }
 
-
-    public void addListener(String numeroConta) {
+    public void addListener(String numeroConta, String cpfConta, String nomeConta, Double saldoConta) {
         this.itemView.setOnClickListener(
                 v -> {
                     Context c = this.itemView.getContext();
@@ -47,7 +46,10 @@ public class ContaViewHolder  extends RecyclerView.ViewHolder {
                     //TODO Está especificando a Activity mas não está passando o número da conta pelo Intent
                     // Etapa 3 do projeto
                     // passando o número da conta como extra no Internet
-                    i.putExtra("NUMERO_CONTA", numeroConta);
+                    i.putExtra("numeroDaConta", numeroConta);
+                    i.putExtra("CPFDaConta", cpfConta);
+                    i.putExtra("NomeDaConta", nomeConta);
+                    i.putExtra("SaldoDaConta", saldoConta.toString());
                     c.startActivity(i);
                 }
         );

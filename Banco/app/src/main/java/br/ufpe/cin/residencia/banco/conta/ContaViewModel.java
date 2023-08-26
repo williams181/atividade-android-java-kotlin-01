@@ -19,22 +19,18 @@ public class ContaViewModel extends AndroidViewModel {
     private MutableLiveData<Conta> _contaAtual = new MutableLiveData<>();
     public LiveData<Conta> contaAtual = _contaAtual;
 
-    public ContaViewModel(@NonNull Application application) {
-        super(application);
-        this.repository = new ContaRepository(BancoDB.getDB(application).contaDAO());
-        this.contas = repository.getContas();
-    }
-
     void inserir(Conta c) {
         new Thread(() -> repository.inserir(c)).start();
     }
 
+    // Etapa 7 do projeto
     public void atualizar(Conta c) {
         repository.atualizar(c);
     }
 
     public void remover(Conta c) {
-        repository.remover(c);
+        new Thread(() ->
+                repository.remover(c)).start();
     }
 
     public Conta buscarPeloNumero(String numeroConta) {
@@ -44,4 +40,12 @@ public class ContaViewModel extends AndroidViewModel {
     public LiveData<List<Conta>> getContas() {
         return contas;
     }
+
+    public ContaViewModel(@NonNull Application application) {
+        super(application);
+        this.repository = new ContaRepository(BancoDB.getDB(application).contaDAO());
+        this.contas = repository.getContas();
+    }
+
+
 }

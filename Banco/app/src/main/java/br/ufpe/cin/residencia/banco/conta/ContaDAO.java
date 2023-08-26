@@ -36,4 +36,8 @@ public interface ContaDAO {
 
     @Query("SELECT * FROM contas WHERE cpfCliente = :cpfCliente")
     LiveData<List<Conta>> buscarPorCPFCliente(String cpfCliente);
+
+    @Query("SELECT SUM(saldo) FROM contas")
+    Double saldoTotal();
+
 }

@@ -3,6 +3,7 @@ package br.ufpe.cin.residencia.banco;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,18 +31,21 @@ public class CreditarActivity extends AppCompatActivity {
         tipoOperacao.setText("CREDITAR");
         btnOperacao.setText("Creditar");
 
+        // TODO: ETAPA 12 DO PROJETO ( CREDITAR )
         btnOperacao.setOnClickListener(
                 v -> {
                     String numOrigem = numeroContaOrigem.getText().toString();
-                    //TODO lembrar de implementar validação do número da conta e do valor da operação, antes de efetuar a operação de crédito.
-                    // O método abaixo está sendo chamado, mas precisa ser implementado na classe BancoViewModel para funcionar.
                     double valor = Double.valueOf(valorOperacao.getText().toString());
-                    try {
-                        viewModel.creditar(numOrigem,valor);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                    finish();
+
+
+                    new Thread(() -> {
+                        try {
+                            viewModel.creditar(numOrigem,valor);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }).start();
+                    Toast.makeText(this,"CREDITADO COM SUCESSO!",Toast.LENGTH_SHORT).show();
                 }
         );
     }

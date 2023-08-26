@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -32,19 +33,21 @@ public class DebitarActivity extends AppCompatActivity {
         tipoOperacao.setText("DEBITAR");
         btnOperacao.setText("Debitar");
 
+        // TODO: ETAPA 12 DO PROJETO ( DEBITAR )
         btnOperacao.setOnClickListener(
                 v -> {
                     String numOrigem = numeroContaOrigem.getText().toString();
-                    //TODO lembrar de implementar validação do número da conta e do valor da operação, antes de efetuar a operação de débito.
-                    // O método abaixo está sendo chamado, mas precisa ser implementado na classe BancoViewModel para funcionar.
                     double valor = Double.valueOf(valorOperacao.getText().toString());
-                    try {
-                        viewModel.debitar(numOrigem, valor);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                    finish();
+                    new Thread(() -> {
+                        try {
+                            viewModel.debitar(numOrigem, valor);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }).start();
+                    Toast.makeText(this,"DEBITADO COM SUCESSO!",Toast.LENGTH_SHORT).show();
                 }
+
         );
     }
 }

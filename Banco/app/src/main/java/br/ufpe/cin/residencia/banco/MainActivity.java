@@ -50,6 +50,27 @@ public class MainActivity extends AppCompatActivity {
         pesquisar.setOnClickListener(
                 v -> startActivity(new Intent(this, PesquisarActivity.class))
         );
-    }
-    //TODO Neste arquivo ainda falta a atualização automática do valor total de dinheiro armazenado no banco
-}
+
+        // TODO: PARTE 15 DO PROJETO
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {sleep(5000); // Atualiza o valor total do banco a cada 5 milisegundos
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Double saldoTotal = viewModel.getSaldoTotal();
+                                if (saldoTotal != null) {
+                                    totalBanco.setText(Double.toString(saldoTotal));
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        thread.start();
+    }}

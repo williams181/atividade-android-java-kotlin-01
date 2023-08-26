@@ -36,9 +36,9 @@ public class ContasActivity extends AppCompatActivity {
                 v -> startActivity(new Intent(this, AdicionarContaActivity.class))
         );
         // Etapa 1 concluida adicionando o Observar LiveData contas
-        viewModel.getContas().observe(this, contas -> {
+        viewModel.getContas().observe(this, todasContas -> {
             // Atualiza a lista de contas no adapter
-            adapter.setContas(contas);
+            adapter.submitList(todasContas);
         });
     }
     //TODO Neste arquivo ainda falta implementar o código que atualiza a lista de contas automaticamente na tela

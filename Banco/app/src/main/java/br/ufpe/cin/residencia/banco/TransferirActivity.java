@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import br.ufpe.cin.residencia.banco.BancoDB;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,19 +32,20 @@ public class TransferirActivity extends AppCompatActivity {
         tipoOperacao.setText("TRANSFERIR");
         btnOperacao.setText("Transferir");
 
+        // TODO: ETAPA 12 DO PROJETO ( TRANSFERIR )
         btnOperacao.setOnClickListener(
                 v -> {
                     String numOrigem = numeroContaOrigem.getText().toString();
                     String numDestino = numeroContaDestino.getText().toString();
-                    //TODO lembrar de implementar validação dos números das contas e do valor da operação, antes de efetuar a operação de transferência.
-                    // O método abaixo está sendo chamado, mas precisa ser implementado na classe BancoViewModel para funcionar.
                     double valor = Double.valueOf(valorOperacao.getText().toString());
-                    try {
-                        viewModel.transferir(numOrigem, numDestino, valor);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                    finish();
+                    new Thread(() -> {
+                        try {
+                            viewModel.transferir(numOrigem, numDestino, valor);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }).start();
+                    Toast.makeText(this,"TRANSFERIDO COM SUCESSO!",Toast.LENGTH_SHORT).show();
                 }
         );
 

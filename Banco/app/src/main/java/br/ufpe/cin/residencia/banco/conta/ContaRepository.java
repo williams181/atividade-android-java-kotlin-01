@@ -26,11 +26,13 @@ public class ContaRepository {
 
     @WorkerThread
     public void atualizar(Conta c) {
+
         dao.atualizarConta(c);
     }
 
     @WorkerThread
     public void remover(Conta c) {
+
         dao.removerConta(c);
     }
 

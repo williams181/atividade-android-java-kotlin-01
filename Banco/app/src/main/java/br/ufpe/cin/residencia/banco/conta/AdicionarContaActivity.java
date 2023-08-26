@@ -49,10 +49,8 @@ public class AdicionarContaActivity extends AppCompatActivity {
                     }
                     // Etapa 4 do projeto
 
-
                 }
         );
-
 
     }
 
@@ -60,6 +58,7 @@ public class AdicionarContaActivity extends AppCompatActivity {
         // Implemente a validação do nome aqui, por exemplo:
         return nome != null && nome.length() >= 5;
     }
+
     private boolean isValidCPF(String cpf) {
         if (cpf == null || cpf.length() != 11) {
             Toast.makeText(this, "CPF precisa ter 11 dígitos.", Toast.LENGTH_SHORT).show();
@@ -67,6 +66,7 @@ public class AdicionarContaActivity extends AppCompatActivity {
         }
         return true;
     }
+
     private boolean isValidNumeroConta(String numeroConta) {
         if (numeroConta == null || numeroConta.isEmpty()) {
             Toast.makeText(this, "Informe o número da conta.", Toast.LENGTH_SHORT).show();
@@ -74,6 +74,7 @@ public class AdicionarContaActivity extends AppCompatActivity {
         }
         return true;
     }
+
     private boolean isValidSaldo(String saldo) {
         try {
             double valor = Double.parseDouble(saldo);

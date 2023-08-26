@@ -30,15 +30,35 @@ public class PesquisarActivity extends AppCompatActivity {
         rvResultado.setLayoutManager(new LinearLayoutManager(this));
         rvResultado.setAdapter(adapter);
 
+        // TODO: PARTE 13 DO PROJETO
+        final int[] tipoSelecionado = {0};
+        tipoSelecionado[0] = R.id.peloNomeCliente;
+
+
+        tipoPesquisa.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                tipoSelecionado[0] = i; // Realiza a busca de acordo com o tipo selecionado pelo usuário
+            }
+        });
+
         btnPesquisar.setOnClickListener(
                 v -> {
                     String oQueFoiDigitado = aPesquisar.getText().toString();
-                    //TODO implementar a busca de acordo com o tipo de busca escolhido pelo usuário
+                    switch (tipoSelecionado[0]) {
+                        case R.id.peloNomeCliente:
+                            viewModel.buscarPeloNome(oQueFoiDigitado, adapter);
+                            break;
+                        case R.id.peloCPFcliente:
+                            viewModel.buscarPeloCPF(oQueFoiDigitado, adapter);
+                            break;
+                        case R.id.peloNumeroConta:
+                            viewModel.buscarPeloNumero(oQueFoiDigitado, adapter);
+                            break;
+                    }
                 }
         );
-
-        //TODO atualizar o RecyclerView com resultados da busca na medida que encontrar
-
-
+        finish();
     }
+
 }
